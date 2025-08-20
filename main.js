@@ -37,6 +37,7 @@ for (const tile of packageTiles) {
             currentItem = "land";
             setCursor("land")
         } else if (tile.classList.contains("rock")) {
+            setCursor("rock");
             currentItem = "rock";
         }
     });
