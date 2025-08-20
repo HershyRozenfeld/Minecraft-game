@@ -1,76 +1,87 @@
 const main = document.querySelector("main");
 const header = document.querySelector('header');
-const shovel = document.getElementsByClassName("shovel")[0];
-const pickaxe = document.getElementsByClassName("pickaxe")[0];
+const tools = document.querySelectorAll(".tools > div");
+const packageTiles = document.querySelectorAll(".package > div");
+const tiles = ["land", "rock", "grass"];
+let currentItem = "";
 
-let currentTool = "";
-let currentTile = "";
-
-const tools = {
+const toolsForTiles = {
     land: "shovel",
     grass: "shovel",
     rock: "pickaxe"
 }
 
-const packege = {
+const packageNumber = {
     grass: 0,
     land: 0,
     rock: 0
 };
 
-shovel.addEventListener('click', () => {
-    currentTool = "shovel";
-})
+for (const tool of tools) {
+    tool.addEventListener('click', () => {
+        if (tool.classList.contains("shovel")) {
+            currentItem = "shovel";
+        }
+        else if (tool.classList.contains("pickaxe")) {
+            currentItem = "pickaxe";
+        }
+    })
+}
 
-pickaxe.addEventListener('click', () => {
-    currentTool = "pickaxe";
-})
+for (const tile of packageTiles) {
+    tile.addEventListener("click", () => {
+        if (tile.classList.contains("grass")) {
+            currentItem = "grass";
+            setCursor("grass")
+        } else if (tile.classList.contains("land")) {
+            currentItem = "land";
+            setCursor("land")
+        } else if (tile.classList.contains("rock")) {
+            currentItem = "rock";
+        }
+    });
+}
+
 
 
 function createSky() {
     const sky = document.createElement("div");
     sky.classList = "sky";
     sky.addEventListener('click', () => {
-        if (currentTile === "land" && packege.land > 0) {
-            sky.replaceWith(createTile('land'));
-            removeTile("land");
-        }
-        else if (currentTile === "rock" && packege.rock > 0) {
-            sky.replaceWith(createTile('rock'));
-            removeTile("rock");
-        }
-        else if (currentTile === "grass" && packege.grass > 0) {
-            sky.replaceWith(createTile('grass'));
-            removeTile("grass");
+        if (tiles.includes(currentItem) && packageNumber[currentItem] > 0) {
+            sky.replaceWith(createTile(currentItem));
+            packageNumber[currentItem]--;
+            const currentPackage = document.querySelector(`.package > .${currentItem}`);
+            currentPackage.textContent = packageNumber[currentItem];
+            if (packageNumber[currentItem] === 0) {
+                setCursor("");
+                currentPackage.style.display = "none";
+            }
         }
     })
     return sky;
-}
-
-function removeTile(type) {
-    packege[type]--;
-    const currentPackage = document.querySelector(`.package > .${type}`);
-    currentPackage.textContent = packege[type];
-    if (packege[type] === 0) {
-        currentPackage.style.display = "none";
-    }
 }
 
 function createTile(type) {
     const tile = document.createElement("div");
     tile.classList = type;
     tile.addEventListener('click', () => {
-        if (currentTool === tools[type]) {
+        if (currentItem === toolsForTiles[type]) {
             tile.replaceWith(createSky());
-            packege[type]++;
+            packageNumber[type]++;
             const currentPackage = document.querySelector(`.package > .${type}`);
             currentPackage.style.display = "inline";
-            currentPackage.textContent = packege[type];
-            currentTile = type;
+            currentPackage.textContent = packageNumber[type];
         }
     })
     return tile;
 }
+
+function setCursor(item) {
+    main.className = "";
+    main.classList.add(`cursor-${item}`);
+}
+
 
 function init() {
     for (let i = 0; i < 500; i++) {

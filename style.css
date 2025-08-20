@@ -46,9 +46,6 @@ div:hover {
     border: 2px solid black;
 }
 
-/* ==================== */
-
-
 .deshe {
     background-image: url('https://previews.123rf.com/images/mkfilm/mkfilm2104/mkfilm210400009/167504591-pixel-grass-and-ground-background-the-concept-of-minecraft-games-3d-abstract-cubes-video-game.jpg');
     background-size: cover;       /* fait remplir toute la cellule */
@@ -79,3 +76,11 @@ div:hover {
     margin: 0.5rem 0;
 }
 
+
+.cursor-grass{
+    cursor: url("assert/cursorImages/grass.png") 4 4, auto;
+}
+
+.cursor-land{
+    cursor: url("assert/cursorImages/land.png") 4 4, auto;
+}
