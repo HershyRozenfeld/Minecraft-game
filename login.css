@@ -17,27 +17,25 @@
       color: white;
     }
 
-    /* --- overlay חצי שקוף כדי שהטקסט יהיה קריא --- */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4); /* overlay חצי שקוף */
+      background: rgba(0,0,0,0.4);
       z-index: 0;
     }
 
     header {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between; /* כפתור שמאל + כפתורים ימין */
       padding: 10px 20px;
       position: relative;
-      z-index: 1; /* מעל overlay */
+      z-index: 1;
     }
 
     header button {
       padding: 10px 15px;
-      background: crimson;
       color: white;
       border: none;
       border-radius: 8px;
@@ -61,7 +59,7 @@
       align-items: center;
       gap: 20px;
       position: relative;
-      z-index: 1; /* מעל overlay */
+      z-index: 1;
       text-align: center;
     }
 
@@ -75,7 +73,6 @@
       font-size: 16px;
     }
 
-    /* --- כותרת מרכזית --- */
     main h1 {
       font-size: 48px;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
