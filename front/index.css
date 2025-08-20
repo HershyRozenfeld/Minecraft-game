@@ -1,0 +1,57 @@
+body {
+    display: grid;
+    grid-template-columns: repeat(99, 1fr);
+    grid-template-rows: repeat(30, 1fr);
+    height: 1440px;
+    width: 4800px;
+    margin: 0;
+    padding: 0;
+}
+
+.cell:hover {
+   border: 2px solid rgb(32, 32, 32)
+}
+
+.shamaim {
+    background-color: #87CEEB;
+}
+
+
+.deshe {
+    background-image: url('https://previews.123rf.com/images/mkfilm/mkfilm2104/mkfilm210400009/167504591-pixel-grass-and-ground-background-the-concept-of-minecraft-games-3d-abstract-cubes-video-game.jpg');
+    background-size: cover;       /* fait remplir toute la cellule */
+    background-repeat: no-repeat; /* empêche la répétition */
+    background-position: center;  /* centre l’image */
+}
+
+
+.adama {
+    background-image: url('../pictures/adama.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#side-menu {
+    position : fixed;
+    margin-left: 2rem;
+    margin-top: 1.8rem;
+
+}
+
+#side-menu a {    
+    font-size: 17px;
+    font-weight: 700;
+    background-color: #A0A0A0;
+    border: 2px solid #707070;
+    border-radius: 4px;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0px 3px 1px #707070;
+    margin: 0.5rem 0;
+}
+
