@@ -28,7 +28,7 @@
 
     header {
       display: flex;
-      justify-content: space-between; /* כפתור שמאל + כפתורים ימין */
+      justify-content: flex-end;
       padding: 10px 20px;
       position: relative;
       z-index: 1;
