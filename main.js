@@ -5,47 +5,50 @@ const packege = {
     rock: 0
 };
 
-for (let i = 0; i < 500; i++) {
+function createSky() {
     const sky = document.createElement("div");
     sky.classList = "sky";
     sky.addEventListener('click', () => {
         if (currentTile === "land" && packege.land > 0) {
-            sky.classList = "land";
+            sky.replaceWith(createTile('land'));
             packege.land--;
         }
         else if (currentTile === "rock" && packege.rock > 0) {
-            sky.classList = "rock";
+            sky.replaceWith(createTile('rock'));
             packege.rock--;
         }
     })
-    body.appendChild(sky);
+    return sky;
 }
 
-for (let i = 0; i < 250; i++) {
+function createTile(type) {
     const land = document.createElement("div");
-    land.classList = "land";
+    land.classList = type;
     land.addEventListener('click', () => {
-        if (land.classList.contains("land")) {
-            land.classList = 'sky';
-            packege.land++;
-            currentTile = "land";
-            console.log(packege);
-        }
+        land.replaceWith(createSky());
+        packege[type]++;
+        currentTile = type;
+        console.log(packege);
+
     })
-    body.appendChild(land)
+    return land;
 }
 
-for (let i = 0; i < 1000; i++) {
-    const rock = document.createElement("div");
-    rock.classList = "rock";
-    rock.addEventListener('click', () => {
-        if (rock.classList.contains("rock")) {
-            rock.classList = 'sky'
-            packege.rock++;
-            currentTile = "rock";
-            console.log(packege);
-        }
-    })
-    body.appendChild(rock);
+function init() {
+    for (let i = 0; i < 500; i++) {
+        const sky = createSky();
+        body.appendChild(sky);
+    }
+
+    for (let i = 0; i < 250; i++) {
+        const land = createTile('land');
+        body.appendChild(land)
+    }
+
+    for (let i = 0; i < 1000; i++) {
+        const rock = createTile('rock');
+        body.appendChild(rock);
+    }
 }
 
+init();
