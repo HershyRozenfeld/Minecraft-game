@@ -21,9 +21,11 @@ for (const tool of tools) {
   tool.addEventListener('click', () => {
     if (tool.classList.contains("shovel")) {
       currentItem = "shovel";
+      setCursor("shovel")
     }
     else if (tool.classList.contains("pickaxe")) {
       currentItem = "pickaxe";
+      setCursor("shovel")
     }
   })
 }

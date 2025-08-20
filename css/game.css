@@ -106,13 +106,13 @@ header *{
 }
 
 .cursor-grass {
-    cursor: url("assert/cursorImages/grass.png") 4 4, auto;
+    cursor: url("../assert/cursorImages/grass.png") 4 4, auto;
 }
 
 .cursor-land {
-    cursor: url("assert/cursorImages/land.png") 4 4, auto;
+    cursor: url("../assert/cursorImages/land.png") 4 4, auto;
 }
 
 .cursor-rock{
-    cursor: url("assert/cursorImages/rock.png") 4 4, auto;
+    cursor: url("../assert/cursorImages/rock.png") 4 4, auto;
 }
