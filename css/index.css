@@ -18,7 +18,7 @@ body {
 
 
 .deshe {
-    background-image: url('https://previews.123rf.com/images/mkfilm/mkfilm2104/mkfilm210400009/167504591-pixel-grass-and-ground-background-the-concept-of-minecraft-games-3d-abstract-cubes-video-game.jpg');
+    background-image: url('../assert/images/deshe.webp');
     background-size: cover;       /* fait remplir toute la cellule */
     background-repeat: no-repeat; /* empêche la répétition */
     background-position: center;  /* centre l’image */
@@ -26,21 +26,21 @@ body {
 
 
 .adama {
-    background-image: url('../pictures/adama.webp');
+    background-image: url('../assert/images/land.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .avanim {
-    background-image: url('../pictures/avanim.webp');
+    background-image: url('../assert/images/avanim.webp');
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;   
     background-position: center;
 }
 
 .bedrock {
-    background-image: url('../pictures/bedrock.webp');
+    background-image: url('../assert/images/bedrock.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
