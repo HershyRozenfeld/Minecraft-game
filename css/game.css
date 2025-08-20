@@ -1,11 +1,27 @@
-body {
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.package {
+    display: flex;
+    flex-direction: column;
+}
+
+.package * {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    margin-top: 1.8rem;
+}
+
+main {
     display: grid;
     grid-template-columns: repeat(99, 1fr);
     grid-template-rows: repeat(30, 1fr);
     height: 1440px;
     width: 4800px;
-    margin: 0;
-    padding: 0;
 }
 
 .cell:hover {
@@ -17,23 +33,23 @@ body {
 }
 
 
-.deshe {
-    background-image: url('../assert/images/deshe.webp');
-    background-size: cover;       /* fait remplir toute la cellule */
-    background-repeat: no-repeat; /* empêche la répétition */
-    background-position: center;  /* centre l’image */
+.grass {
+    background-image: url('../assert/images/grass.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 
-.adama {
+.land {
     background-image: url('../assert/images/land.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.avanim {
-    background-image: url('../assert/images/avanim.webp');
+.rock {
+    background-image: url('../assert/images/rock.webp');
     background-size: cover;
     background-repeat: no-repeat;   
     background-position: center;
@@ -46,15 +62,27 @@ body {
     background-position: center;
 }
 
+header {
+    position: fixed;
+    top: 0;
+    left: 09;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+    pointer-events: none;
+}
 
-
-
+header *{
+    pointer-events: auto;
+}
 
 #side-menu {
     position : fixed;
-    margin-left: 2rem;
     margin-top: 1.8rem;
-
 }
 
 #side-menu a {    
@@ -73,3 +101,18 @@ body {
     margin: 0.5rem 0;
 }
 
+.tools{
+    margin-top: 5.4rem;
+}
+
+.cursor-grass {
+    cursor: url("../assert/cursorImages/grass.png") 4 4, auto;
+}
+
+.cursor-land {
+    cursor: url("../assert/cursorImages/land.png") 4 4, auto;
+}
+
+.cursor-rock{
+    cursor: url("../assert/cursorImages/rock.png") 4 4, auto;
+}
