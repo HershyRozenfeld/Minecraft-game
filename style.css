@@ -10,9 +10,7 @@
     gap: 1rem;
 }
 
-.package>.grass,
-.package>.land,
-.package>.rock {
+.package * {
     display: none;
 }
 
@@ -64,21 +62,10 @@ header *{
     pointer-events: auto;
 }
 
-.deshe {
-    background-image: url('https://previews.123rf.com/images/mkfilm/mkfilm2104/mkfilm210400009/167504591-pixel-grass-and-ground-background-the-concept-of-minecraft-games-3d-abstract-cubes-video-game.jpg');
-    background-size: cover;
-    /* fait remplir toute la cellule */
-    background-repeat: no-repeat;
-    /* empêche la répétition */
-    background-position: center;
-    /* centre l’image */
-}
-
 #side-menu {
     position: fixed;
     margin-left: 2rem;
     margin-top: 1.8rem;
-
 }
 
 #side-menu a {
@@ -97,6 +84,10 @@ header *{
     margin: 0.5rem 0;
 }
 
+.tools{
+    margin-left: 2rem;
+    margin-top: 5.4rem;
+}
 
 .cursor-grass {
     cursor: url("assert/cursorImages/grass.png") 4 4, auto;
