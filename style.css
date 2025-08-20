@@ -18,8 +18,12 @@ div {
     background-color: lightblue;
 }
 
+.grass{
+    background-image: url(assert/images/grass.webp);
+}
+
 .land {
-    background-color: brown;
+    background-image: url(assert/images/land.webp);
 }
 
 .rock {

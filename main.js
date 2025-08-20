@@ -40,6 +40,11 @@ function init() {
         body.appendChild(sky);
     }
 
+    for (let i = 0; i < 50; i++) {
+        const grass = createTile("grass");
+        body.appendChild(grass);
+    }
+
     for (let i = 0; i < 250; i++) {
         const land = createTile('land');
         body.appendChild(land)
