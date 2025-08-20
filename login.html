@@ -1,28 +1,39 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <title>login</title>
-  <link rel="stylesheet" href="./login.css">
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="./login.css">
+    <script src="./login.js" defer></script>
 </head>
+
 <body>
 
-  <!-- ווידאו כרקע -->
-  <video autoplay muted loop id="bg-video">
-    <source src="./src/video/Minecraft.mp4" type="video/mp4">
-    הדפדפן שלך לא תומך בוידאו.
-  </video>
+    <!-- ווידאו כרקע -->
+    <video autoplay muted loop id="bg-video">
+        <source src="./src/video/Minecraft.mp4" type="video/mp4">
+        הדפדפן שלך לא תומך בוידאו.
+    </video>
 
-  <header>
-    <button>שמע</button>
-    <button>הסבר</button>
-  </header>
+    <header>
+        <!-- כפתור שמאל -->
+        <button id="fullscreen-btn">מסך מלא</button>
 
-  <main>
-    <h1>ברוכים הבאים!</h1>
-    <button>התחל לשחק</button>
-    <button>המשך משחק</button>
-  </main>
+        <!-- כפתורים ימין -->
+        <div class="right-buttons">
+            <button>שמע</button>
+            <button>הסבר</button>
+        </div>
+    </header>
+
+    <main>
+        <h1>ברוכים הבאים!</h1>
+        <button>התחל לשחק</button>
+        <button>המשך משחק</button>
+    </main>
 
 </body>
+
 </html>
+
