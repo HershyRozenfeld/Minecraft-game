@@ -14,12 +14,23 @@
         הדפדפן שלך לא תומך בוידאו.
     </video>
 
+    <audio id="background-audio" preload="auto" loop>
+        <source src="./assert/audio/minecraft-theme.mp3" type="audio/mpeg" />
+        הדפדפן שלך לא תומך בשמע.
+    </audio>
+
     <header>
         <div class="right-buttons">
-            <button>הסבר</button>
-            <button>שמע</button>
+            <button>
+                <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+            </button>
+            <button class="audio">
+                <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>
+            </button>
         </div>
-        <button id="fullscreen-btn">מסך מלא</button>
+        <button id="fullscreen-btn">
+            <i class="fa-solid fa-expand"></i>
+        </button>
     </header>
 
     <main>
@@ -29,4 +40,5 @@
     </main>
 
 </body>
+
 </html>
