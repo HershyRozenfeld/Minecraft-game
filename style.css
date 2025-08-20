@@ -4,7 +4,19 @@
     box-sizing: border-box;
 }
 
-body {
+.package{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.package>.grass,
+.package>.land,
+.package>.rock {
+    display: none;
+}
+
+main {
     display: grid;
     grid-template-columns: repeat(50, 1fr);
 }
@@ -18,7 +30,7 @@ div {
     background-color: lightblue;
 }
 
-.grass{
+.grass {
     background-image: url(assert/images/grass.webp);
 }
 
