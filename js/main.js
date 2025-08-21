@@ -1,123 +1,157 @@
-const main = document.querySelector("main");
-const header = document.querySelector('header');
-const tools = document.querySelectorAll(".tools > div");
-const packageTiles = document.querySelectorAll(".package > div");
-const tiles = ["land", "rock", "grass"];
-let currentItem = "";
+// === DOM ===
+const mainEl = document.querySelector('main#game');
+const toolButtons = document.querySelectorAll('.tool-btn');
+const tileButtons = document.querySelectorAll('.tile-btn');
 
+// === Current selection ===
+let currentSelection = { type: null, value: null }; // {type: 'tool'|'tile', value: string}
+
+// === Tool ↔ Tile rules ===
 const toolsForTiles = {
-  land: "shovel",
-  grass: "shovel",
-  rock: "pickaxe"
-}
-
-const packageNumber = {
-  grass: 0,
-  land: 0,
-  rock: 0
+  grass: ["shovel"],
+  land:  ["shovel"],
+  rock:  ["axeStones"],
+  tree:  ["axe", "axeStones"],
+  leaves:["scissors"],
 };
 
-for (const tool of tools) {
-  tool.addEventListener('click', () => {
-    if (tool.classList.contains("shovel")) {
-      currentItem = "shovel";
-      setCursor("shovel")
-    }
-    else if (tool.classList.contains("pickaxe")) {
-      currentItem = "pickaxe";
-      setCursor("shovel")
-    }
-  })
+// === Placeable tiles ===
+const placeableTiles = ['grass', 'land', 'rock', 'leaves', 'tree'];
+
+// === Harvestable tiles ===
+const harvestableTiles = ['grass', 'land', 'rock', 'leaves', 'tree']; // bedrock intentionally excluded
+
+// === Inventory counts ===
+const inventoryCounts = { grass: 0, land: 0, rock: 0, leaves: 0, tree: 0 };
+
+// === UI badges ===
+// init badges with 0
+tileButtons.forEach(btn => { btn.dataset.count = "0"; });
+
+// update badge value for a tile
+function updateBadge(tile) {
+  const n = inventoryCounts[tile] || 0;
+  const btn = document.querySelector(`.tile-btn[data-tile="${tile}"]`);
+  if (btn) btn.dataset.count = String(n);
 }
 
-for (const tile of packageTiles) {
-  tile.addEventListener("click", () => {
-    if (tile.classList.contains("grass")) {
-      currentItem = "grass";
-      setCursor("grass")
-    } else if (tile.classList.contains("land")) {
-      currentItem = "land";
-      setCursor("land")
-    } else if (tile.classList.contains("rock")) {
-      setCursor("rock");
-      currentItem = "rock";
-    }
+// === Selection helpers ===
+function clearActiveButtons() {
+  toolButtons.forEach(b => b.classList.remove('is-active'));
+  tileButtons.forEach(b => b.classList.remove('is-active'));
+}
+function setCursorForTile(tileOrEmpty) {
+  // remove only previous cursor-* classes, keep other classes on <main>
+  [...mainEl.classList].forEach(cls => { if (cls.startsWith('cursor-')) mainEl.classList.remove(cls); });
+  if (tileOrEmpty) mainEl.classList.add(`cursor-${tileOrEmpty}`);
+}
+function setSelection(type, value) {
+  currentSelection = { type, value };
+}
+
+// === Event handlers ===
+function handleToolButtonClick(btn) {
+  clearActiveButtons();
+  btn.classList.add('is-active');
+  setSelection('tool', btn.dataset.tool);
+  setCursorForTile(''); // tools don't set a tile cursor
+}
+function handleTileButtonClick(btn) {
+  clearActiveButtons();
+  btn.classList.add('is-active');
+  const tile = btn.dataset.tile;
+  setSelection('tile', tile);
+  setCursorForTile(placeableTiles.includes(tile) ? tile : '');
+}
+
+// === Event binding ===
+toolButtons.forEach(btn => btn.addEventListener('click', () => handleToolButtonClick(btn)));
+tileButtons.forEach(btn => btn.addEventListener('click', () => handleTileButtonClick(btn)));
+
+// === Sky cell (empty) ===
+function createSkyCell() {
+  const el = document.createElement('div');
+  el.classList.add('sky', 'cell');
+  el.addEventListener('click', () => {
+    if (currentSelection.type !== 'tile') return;
+    const tile = currentSelection.value;
+    if (!placeableTiles.includes(tile)) return;
+    if ((inventoryCounts[tile] || 0) <= 0) return;      // require inventory
+    inventoryCounts[tile]--;
+    updateBadge(tile);
+    el.replaceWith(createTileCell(tile));
   });
+  return el;
 }
 
-
-
-function createSky() {
-  const sky = document.createElement("div");
-  sky.classList = "sky";
-  sky.addEventListener('click', () => {
-    if (tiles.includes(currentItem) && packageNumber[currentItem] > 0) {
-      sky.replaceWith(createTile(currentItem));
-      packageNumber[currentItem]--;
-      const currentPackage = document.querySelector(`.package > .${currentItem}`);
-      currentPackage.textContent = packageNumber[currentItem];
-      if (packageNumber[currentItem] === 0) {
-        setCursor("");
-        currentPackage.style.display = "none";
-      }
-    }
-  })
-  return sky;
+// === Solid tile cell ===
+function createTileCell(type) {
+  const el = document.createElement('div');
+  el.classList.add(type, 'cell');
+  el.addEventListener('click', () => {
+    if (currentSelection.type !== 'tool') return;
+    const tool = currentSelection.value;
+    const validTools = toolsForTiles[type] || [];
+    if (!harvestableTiles.includes(type)) return;       // prevent bedrock harvest
+    if (!validTools.includes(tool)) return;             // tool must match rules
+    inventoryCounts[type] = (inventoryCounts[type] || 0) + 1;
+    updateBadge(type);
+    el.replaceWith(createSkyCell());
+  });
+  return el;
 }
 
-function removeTile(type) {
-  packege[type]--;
-  const currentPackage = document.querySelector(`.package > .${type}`);
-  currentPackage.textContent = packege[type];
-  if (packege[type] === 0) {
-    currentPackage.style.display = "none";
-  }
-}
-
-function createTile(type) {
-  const tile = document.createElement("div");
-  tile.classList = type;
-  tile.addEventListener('click', () => {
-    if (currentItem === toolsForTiles[type]) {
-      tile.replaceWith(createSky());
-      packageNumber[type]++;
-      const currentPackage = document.querySelector(`.package > .${type}`);
-      currentPackage.style.display = "inline";
-      currentPackage.textContent = packageNumber[type];
-    }
-  })
-  return tile;
-}
-
-function setCursor(item) {
-  main.className = "";
-  main.classList.add(`cursor-${item}`);
-}
-
-function generateHtml() {
+// === World generation ===
+function generateWorld() {
   const rows = 30;
   const cols = 99;
-  let cell;
-
   for (let r = 1; r <= rows; r++) {
     for (let c = 1; c <= cols; c++) {
-
+      let cell;
       if (r <= 10) {
-        cell = createSky();
+        cell = createSkyCell();
       } else if (r === 11) {
-        cell = createTile('grass');
+        cell = createTileCell('grass');
       } else if (r > 11 && r < 16) {
-        cell = createTile('land');
+        cell = createTileCell('land');
       } else if (r >= 16 && r <= 28) {
-        cell = createTile('rock');
+        cell = createTileCell('rock');
       } else {
-        cell = createTile('bedrock')
+        cell = createTileCell('bedrock'); // unbreakable
       }
-      cell.classList.add("cell");
-
-      main.appendChild(cell);
+      mainEl.appendChild(cell);
     }
   }
 }
 
-generateHtml()
+// === Helper: replace a cell by row/col ===
+function placeAt(row, col, type) {
+  const cols = 99;
+  const index = (row - 1) * cols + (col - 1);
+  const oldCell = mainEl.children[index];
+  if (!oldCell) return;
+  oldCell.replaceWith(createTileCell(type));
+}
+
+// === Helper: draw a tree ===
+function drawTree(baseRow, baseCol) {
+  // trunk: 4 cells
+  for (let i = 0; i < 4; i++) {
+    placeAt(baseRow - i, baseCol, "tree");
+  }
+  // leaves above trunk
+  let topRow = baseRow - 4;
+  for (let c = baseCol - 1; c <= baseCol + 1; c++) placeAt(topRow, c, "leaves");
+  for (let c = baseCol - 2; c <= baseCol + 2; c++) placeAt(topRow - 1, c, "leaves");
+  for (let c = baseCol - 2; c <= baseCol + 2; c++) placeAt(topRow - 2, c, "leaves");
+  for (let c = baseCol - 1; c <= baseCol + 1; c++) placeAt(topRow - 3, c, "leaves");
+}
+
+// === Boot ===
+generateWorld();
+drawTree(11, 20); 
+drawTree(10, 26); 
+
+drawTree(11, 50);
+drawTree(10, 56);
+
