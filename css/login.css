@@ -83,3 +83,15 @@ main h1 {
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
   margin-bottom: 40px;
 }
+
+img {
+  width: 600px;
+  height: 100px;
+  opacity: 0.7;
+}
+
+.top-image {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: block;
+}
