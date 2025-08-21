@@ -1,54 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/game.css">
-<<<<<<< HEAD
-    <script src="../js/main.js" defer></script>
-=======
-    <script src="../js/htmlgenerator.js" defer></script>
->>>>>>> 1db82f8400f8219566a5aba62fb03b724228fd47
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Game</title>
+  <link rel="stylesheet" href="../css/game.css" />
+  <script src="../js/main.js" defer></script>
 </head>
-
-
 <body>
-<<<<<<< HEAD
-    <header>
-        <section id="side-menu">
-            <a href="">Menu</a>
-            <a href="">New Word</a>
-        </section>
 
-        <!-- <section class="tools">
-            <div class="shovel">shovel</div>
-            <div class="pickaxe">pickaxe</div>
-        </section>   -->
+  <header>
+    <!-- Top bar -->
+    <section class="topbar" aria-label="Main menu">
+      <a href="./login.html" id="menu-link" class="top-link">Menu</a>
+      <a href="./game.html" id="new-word-link" class="top-link">New Word</a>
+    </section>
 
-        <section class="tools">
-            <img src="../assert/images/tools/axe (1).png" alt="axe">
-            <img src="../assert/images/tools/scissors.png" alt="scissors">
-            <img class="shovel" src="../assert/images/tools/shovel.png" alt="shovel">
-            <img class="axeStones" src="../assert/images/tools/axeStones.png" alt="axeStones">
-        </section>
+    <!-- Toolbar (ימין) -->
+    <section class="toolbar" aria-label="Tools">
+      <button class="tool-btn" data-tool="axe" title="Axe">
+        <img src="../assert/images/tools/axe.jpeg" alt="Axe">
+      </button>
+      <button class="tool-btn" data-tool="scissors" title="Scissors">
+        <img src="../assert/images/tools/scissors.jpeg" alt="Scissors">
+      </button>
+      <button class="tool-btn" data-tool="shovel" title="Shovel">
+        <img src="../assert/images/tools/shovel.jpeg" alt="Shovel">
+      </button>
+      <button class="tool-btn" data-tool="axeStones" title="Stone Axe">
+        <img src="../assert/images/tools/axeStones.jpeg" alt="Stone Axe">
+      </button>
+    </section>
 
-        <section class="package">
-            <div class="grass"></div>
-            <div class="land"></div>
-            <div class="rock"></div>
-        </section>
-    </header>
-    <main></main>
-=======
-    <section id="side-menu">
-        <a href="login.html">Menu</a>
-        <a href="">New Word</a>
-    
->>>>>>> 1db82f8400f8219566a5aba62fb03b724228fd47
+    <!-- Inventory (שמאל) -->
+    <section class="inventory" aria-label="Tile inventory">
+      <button class="tile-btn" data-tile="grass" title="Grass">
+        <div class="tile-swatch grass"></div>
+      </button>
+      <button class="tile-btn" data-tile="land" title="Land">
+        <div class="tile-swatch land"></div>
+      </button>
+      <button class="tile-btn" data-tile="rock" title="Rock">
+        <div class="tile-swatch rock"></div>
+      </button>
+      <button class="tile-btn" data-tile="bedrock" title="Bedrock">
+        <div class="tile-swatch bedrock"></div>
+      </button>
+      <button class="tile-btn" data-tile="tree" title="Tree">
+        <div class="tile-swatch tree"></div>
+      </button>
+      <button class="tile-btn" data-tile="leaves" title="Leaves">
+        <div class="tile-swatch leaves"></div>
+      </button>
+      
+    </section>
+  </header>
+
+  <main id="game"></main>
 </body>
-
-
 </html>
