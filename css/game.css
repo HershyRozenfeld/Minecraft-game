@@ -73,3 +73,27 @@ body {
     margin: 0.5rem 0;
 }
 
+
+.tools {
+    background-color: #ffffff00;
+    position: fixed;
+    right: 0 ;
+    margin-right: 20px ;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    padding: 0;
+
+}
+.tools img {
+    
+    height: 48px;
+    width: 48px;
+    
+}
+
+.tools img:hover {
+    border: 2px solid black
+}
+
+
