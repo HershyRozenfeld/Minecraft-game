@@ -1,123 +1,160 @@
-const main = document.querySelector("main");
-const header = document.querySelector('header');
-const tools = document.querySelectorAll(".tools > div");
-const packageTiles = document.querySelectorAll(".package > div");
-const tiles = ["land", "rock", "grass"];
-let currentItem = "";
+// ====== DOM ======
+const mainEl = document.querySelector('main#game');
+const toolButtons = document.querySelectorAll('.tool-btn');
+const tileButtons = document.querySelectorAll('.tile-btn');
 
+// ====== מצב נוכחי ======
+let currentSelection = { type: null, value: null }; // {type: 'tool'|'tile', value: string}
+
+// ====== מיפויים ======
 const toolsForTiles = {
-  land: "shovel",
-  grass: "shovel",
-  rock: "pickaxe"
-}
-
-const packageNumber = {
-  grass: 0,
-  land: 0,
-  rock: 0
+  grass: ['shovel'],
+  land: ['shovel'],
+  rock: ['axe', 'axeStones'],
+  leaves: ['scissors'],
+  tree: ['axe', 'axeStones'],
 };
 
-for (const tool of tools) {
-  tool.addEventListener('click', () => {
-    if (tool.classList.contains("shovel")) {
-      currentItem = "shovel";
-      setCursor("shovel")
-    }
-    else if (tool.classList.contains("pickaxe")) {
-      currentItem = "pickaxe";
-      setCursor("shovel")
-    }
-  })
+const placeableTiles = ['grass', 'land', 'rock', 'leaves', 'tree'];
+const harvestableTiles = ['grass', 'land', 'rock', 'leaves', 'tree'];
+
+const inventoryCounts = {
+  grass: 0,
+  land: 0,
+  rock: 0,
+  leaves: 0,
+  tree: 0,
+};
+
+// ====== עזר UI – תגיות כמות ======
+const badgeByTile = {};
+tileButtons.forEach(btn => {
+  const tile = btn.dataset.tile;
+  const badge = document.createElement('span');
+  badge.style.position = 'absolute';
+  badge.style.bottom = '-6px';
+  badge.style.right = '-6px';
+  badge.style.minWidth = '20px';
+  badge.style.height = '20px';
+  badge.style.padding = '0 6px';
+  badge.style.borderRadius = '999px';
+  badge.style.border = '1px solid rgba(255,255,255,0.6)';
+  badge.style.background = 'rgba(0,0,0,0.55)';
+  badge.style.color = '#fff';
+  badge.style.fontSize = '12px';
+  badge.style.lineHeight = '20px';
+  badge.style.textAlign = 'center';
+  badge.style.transform = 'translate(0, 0)';
+  badge.textContent = '0';
+  badge.hidden = true;
+
+  btn.style.position = 'relative';
+  btn.appendChild(badge);
+  badgeByTile[tile] = badge;
+});
+
+function updateBadge(tile) {
+  const badge = badgeByTile[tile];
+  if (!badge) return;
+  const n = inventoryCounts[tile] || 0;
+  badge.textContent = String(n);
+  badge.hidden = n <= 0;
 }
 
-for (const tile of packageTiles) {
-  tile.addEventListener("click", () => {
-    if (tile.classList.contains("grass")) {
-      currentItem = "grass";
-      setCursor("grass")
-    } else if (tile.classList.contains("land")) {
-      currentItem = "land";
-      setCursor("land")
-    } else if (tile.classList.contains("rock")) {
-      setCursor("rock");
-      currentItem = "rock";
-    }
+// ====== בחירת כפתורים ======
+function clearActiveButtons() {
+  toolButtons.forEach(b => b.classList.remove('is-active'));
+  tileButtons.forEach(b => b.classList.remove('is-active'));
+}
+function setCursorForTile(tileOrEmpty) {
+  mainEl.className = '';
+  if (tileOrEmpty) mainEl.classList.add(`cursor-${tileOrEmpty}`);
+}
+
+toolButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    clearActiveButtons();
+    btn.classList.add('is-active');
+    currentSelection = { type: 'tool', value: btn.dataset.tool };
+    setCursorForTile('');
   });
-}
+});
 
+tileButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    clearActiveButtons();
+    btn.classList.add('is-active');
+    const tile = btn.dataset.tile;
+    currentSelection = { type: 'tile', value: tile };
+    // קורסור מותאם לאריחים (יש לך תמונות ל-grass/land/rock)
+    setCursorForTile(placeableTiles.includes(tile) ? tile : '');
+  });
+});
 
+// ====== בניית תאים ======
+function createSkyCell() {
+  const el = document.createElement('div');
+  el.classList.add('sky', 'cell');
 
-function createSky() {
-  const sky = document.createElement("div");
-  sky.classList = "sky";
-  sky.addEventListener('click', () => {
-    if (tiles.includes(currentItem) && packageNumber[currentItem] > 0) {
-      sky.replaceWith(createTile(currentItem));
-      packageNumber[currentItem]--;
-      const currentPackage = document.querySelector(`.package > .${currentItem}`);
-      currentPackage.textContent = packageNumber[currentItem];
-      if (packageNumber[currentItem] === 0) {
-        setCursor("");
-        currentPackage.style.display = "none";
+  el.addEventListener('click', () => {
+    if (currentSelection.type === 'tile') {
+      const tile = currentSelection.value;
+      if (!placeableTiles.includes(tile)) return;
+
+      // אפשר להניח רק אם יש במלאי
+      if ((inventoryCounts[tile] || 0) > 0) {
+        inventoryCounts[tile]--;
+        updateBadge(tile);
+        el.replaceWith(createTileCell(tile));
       }
     }
-  })
-  return sky;
+  });
+
+  return el;
 }
 
-function removeTile(type) {
-  packege[type]--;
-  const currentPackage = document.querySelector(`.package > .${type}`);
-  currentPackage.textContent = packege[type];
-  if (packege[type] === 0) {
-    currentPackage.style.display = "none";
-  }
-}
+function createTileCell(type) {
+  const el = document.createElement('div');
+  el.classList.add(type, 'cell');
 
-function createTile(type) {
-  const tile = document.createElement("div");
-  tile.classList = type;
-  tile.addEventListener('click', () => {
-    if (currentItem === toolsForTiles[type]) {
-      tile.replaceWith(createSky());
-      packageNumber[type]++;
-      const currentPackage = document.querySelector(`.package > .${type}`);
-      currentPackage.style.display = "inline";
-      currentPackage.textContent = packageNumber[type];
+  el.addEventListener('click', () => {
+    if (currentSelection.type === 'tool') {
+      const tool = currentSelection.value;
+      const validTools = toolsForTiles[type] || [];
+      if (validTools.includes(tool) && harvestableTiles.includes(type)) {
+        // חציבה/חפירה -> הופך לשמיים ומוסיף למלאי
+        inventoryCounts[type] = (inventoryCounts[type] || 0) + 1;
+        updateBadge(type);
+        el.replaceWith(createSkyCell());
+      }
     }
-  })
-  return tile;
+  });
+
+  return el;
 }
 
-function setCursor(item) {
-  main.className = "";
-  main.classList.add(`cursor-${item}`);
-}
-
-function generateHtml() {
+// ====== יצירת הגריד הראשוני ======
+function generateWorld() {
   const rows = 30;
   const cols = 99;
-  let cell;
 
   for (let r = 1; r <= rows; r++) {
     for (let c = 1; c <= cols; c++) {
-
+      let cell;
       if (r <= 10) {
-        cell = createSky();
+        cell = createSkyCell();
       } else if (r === 11) {
-        cell = createTile('grass');
+        cell = createTileCell('grass');
       } else if (r > 11 && r < 16) {
-        cell = createTile('land');
+        cell = createTileCell('land');
       } else if (r >= 16 && r <= 28) {
-        cell = createTile('rock');
+        cell = createTileCell('rock');
       } else {
-        cell = createTile('bedrock')
+        cell = createTileCell('bedrock'); // לא ניתן לחציבה
       }
-      cell.classList.add("cell");
-
-      main.appendChild(cell);
+      mainEl.appendChild(cell);
     }
   }
 }
 
-generateHtml()
+generateWorld();
