@@ -16,6 +16,24 @@
     margin-top: 1.8rem;
 }
 
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.package {
+    display: flex;
+    flex-direction: column;
+}
+
+.package * {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    margin-top: 1.8rem;
+}
+
 main {
     display: grid;
     grid-template-columns: repeat(99, 1fr);
@@ -101,6 +119,21 @@ header *{
     margin: 0.5rem 0;
 }
 
+.tools{
+    margin-top: 5.4rem;
+}
+
+.cursor-grass {
+    cursor: url("../assert/cursorImages/grass.png") 4 4, auto;
+}
+
+.cursor-land {
+    cursor: url("../assert/cursorImages/land.png") 4 4, auto;
+}
+
+.cursor-rock{
+    cursor: url("../assert/cursorImages/rock.png") 4 4, auto;
+}
 .tools{
     margin-top: 5.4rem;
 }
