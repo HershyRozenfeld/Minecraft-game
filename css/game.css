@@ -82,7 +82,7 @@ header *{
 
 #side-menu {
     position : fixed;
-    margin-top: 1.8rem;
+    margin-top: -5rem;
 }
 
 #side-menu a {    
@@ -105,6 +105,30 @@ header *{
     margin-top: 5.4rem;
 }
 
+/* ------------------------------ */
+img.axeStones {
+    filter: grayscale(1) brightness(0);
+}
+
+section {
+    padding-top: 10vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    height: 4vh;
+    width: 2vw;
+}
+
+img:hover {
+    cursor: pointer;
+    filter: brightness(1);
+    opacity: 0.5;
+    border-right: 3px solid red;
+}
+/* ------------------------------ */
 .cursor-grass {
     cursor: url("../assert/cursorImages/grass.png") 4 4, auto;
 }
