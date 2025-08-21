@@ -132,12 +132,15 @@
   }
   .cell:hover { border: 2px solid rgb(32,32,32); }
   
-  /* ====== רקעים של בלוקים ====== */
-  .sky     { background-color: #87CEEB; }
-  .grass   { background-image: url('../assert/images/grass.webp');   background-size: cover; background-repeat: no-repeat; background-position: center; }
-  .land    { background-image: url('../assert/images/land.webp');    background-size: cover; background-repeat: no-repeat; background-position: center; }
-  .rock    { background-image: url('../assert/images/rock.webp');    background-size: cover; background-repeat: no-repeat; background-position: center; }
-  .bedrock { background-image: url('../assert/images/bedrock.webp'); background-size: cover; background-repeat: no-repeat; background-position: center; }
+/* ====== רקעים של בלוקים ====== */
+.sky     { background-color: #87CEEB; }
+.grass   { background-image: url('../assert/images/grass.webp');   background-size: cover; background-repeat: no-repeat; background-position: center; }
+.land    { background-image: url('../assert/images/land.webp');    background-size: cover; background-repeat: no-repeat; background-position: center; }
+.rock    { background-image: url('../assert/images/rock.webp');    background-size: cover; background-repeat: no-repeat; background-position: center; }
+.bedrock { background-image: url('../assert/images/bedrock.webp'); background-size: cover; background-repeat: no-repeat; background-position: center; }
+.tree    { background-image: url('../assert/images/tree.webp');    background-size: cover; background-repeat: no-repeat; background-position: center; }
+.leaves  { background-image: url('../assert/images/leaves.webp');  background-size: cover; background-repeat: no-repeat; background-position: center; }
+
   
   /* ====== קורסורים מותאמים ====== */
   .cursor-grass { cursor: url("../assert/cursorImages/grass.png") 4 4, auto; }
