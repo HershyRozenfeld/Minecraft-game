@@ -51,13 +51,27 @@ main {
 }
 
 
+<<<<<<< HEAD
 .grass {
     background-image: url('../assert/images/grass.webp');
+=======
+.deshe {
+    background-image: url('../assert/images/deshe.webp');
+    background-size: cover;       /* fait remplir toute la cellule */
+    background-repeat: no-repeat; /* empêche la répétition */
+    background-position: center;  /* centre l’image */
+}
+
+
+.adama {
+    background-image: url('../assert/images/land.webp');
+>>>>>>> 1db82f8400f8219566a5aba62fb03b724228fd47
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
+<<<<<<< HEAD
 
 .land {
     background-image: url('../assert/images/land.webp');
@@ -68,6 +82,10 @@ main {
 
 .rock {
     background-image: url('../assert/images/rock.webp');
+=======
+.avanim {
+    background-image: url('../assert/images/avanim.webp');
+>>>>>>> 1db82f8400f8219566a5aba62fb03b724228fd47
     background-size: cover;
     background-repeat: no-repeat;   
     background-position: center;
@@ -80,6 +98,7 @@ main {
     background-position: center;
 }
 
+<<<<<<< HEAD
 header {
     position: fixed;
     top: 0;
@@ -97,6 +116,11 @@ header {
 header *{
     pointer-events: auto;
 }
+=======
+
+
+
+>>>>>>> 1db82f8400f8219566a5aba62fb03b724228fd47
 
 #side-menu {
     position : fixed;
